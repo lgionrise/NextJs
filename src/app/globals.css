@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-ink: #10192e;
+  --color-ink-soft: #1b2540;
+  --color-paper: #faf8f3;
+  --color-paper-dim: #f1ede4;
+  --color-amber: #db8b2d;
+  --color-amber-soft: #f0c894;
+  --color-teal: #2f8f7d;
+  --color-slate: #4b5571;
+  --color-rule: #dedad0;
+  --color-rule-dark: #29334f;
+
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-plex);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+@layer components {
+  .input {
+    @apply w-full rounded-lg border border-rule bg-paper px-3.5 py-2.5 text-sm text-ink placeholder:text-slate/60 focus:border-ink;
+  }
+  .btn-primary {
+    @apply rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:bg-ink-soft disabled:opacity-50;
+  }
+  .btn-secondary {
+    @apply rounded-full border border-rule px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-paper-dim;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
