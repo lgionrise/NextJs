@@ -3,7 +3,7 @@
 import { useState, FormEvent, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { AuthShell } from "@/components/auth-shell";
-import { authApi, ApiError } from "@/lib/api";
+import { authApi, ApiError, redirectPathForRole } from "@/lib/api";
 import { useAuth } from "@/lib/auth-context";
 
 export default function VerifyTwoFactorPage() {
@@ -32,7 +32,7 @@ export default function VerifyTwoFactorPage() {
       const result = await authApi.verifyTwoFactorLogin({ mfaToken, code });
       sessionStorage.removeItem("lgionrise_mfa_token");
       setSession(result.user, { accessToken: result.accessToken, refreshToken: result.refreshToken });
-      router.push("/student/dashboard");
+      router.push(redirectPathForRole(result.user.role));
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Invalid code. Please try again.");
     } finally {
