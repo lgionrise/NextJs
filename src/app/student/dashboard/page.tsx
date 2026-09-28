@@ -4,6 +4,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth-context";
 import { authApi, studentApi, ApiError } from "@/lib/api";
+import { ProfileHeroCard } from "@/components/profile-hero-card";
 
 interface DashboardData {
   greeting: string;
@@ -94,6 +95,15 @@ export default function StudentDashboardPage() {
 
       <main className="mx-auto max-w-5xl px-6 py-12">
         <h1 className="font-display text-3xl font-medium text-ink">{data.greeting}</h1>
+        <div className="mt-6">
+          <ProfileHeroCard
+            name={data.profile.fullName ?? "Student"}
+            identifier={user?.email ?? user?.phone ?? ""}
+            role="Student"
+            isVerified={data.accountStatus.isEmailVerified}
+            extraBadge={data.profile.className ?? undefined}
+          />
+        </div>
 
         {error && <p className="mt-4 text-sm text-red-600">{error}</p>}
 
