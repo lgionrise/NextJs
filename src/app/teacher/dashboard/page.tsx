@@ -6,6 +6,7 @@ import Link from "next/link";
 import { DashboardShell } from "@/components/dashboard-shell";
 import { useAuth } from "@/lib/auth-context";
 import { teacherApi, batchApi, ApiError, TeacherProfileData, BatchData } from "@/lib/api";
+import { ProfileHeroCard } from "@/components/profile-hero-card";
 
 const NAV = [
   { label: "Dashboard", href: "/teacher/dashboard" },
@@ -47,6 +48,15 @@ export default function TeacherDashboardPage() {
   return (
     <DashboardShell navItems={NAV}>
       <h1 className="font-display text-2xl font-medium text-ink">Teacher dashboard</h1>
+      <div className="mt-6 max-w-lg">
+        <ProfileHeroCard
+          name={profile?.fullName ?? user?.email ?? "Teacher"}
+          identifier={user?.email ?? user?.phone ?? ""}
+          role="Teacher"
+          isVerified={profile?.approvalStatus === "APPROVED"}
+          extraBadge={profile?.approvalStatus}
+        />
+      </div>
 
       {!profile && (
         <div className="card mt-6 max-w-lg">
